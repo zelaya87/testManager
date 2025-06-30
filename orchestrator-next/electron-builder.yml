@@ -1,0 +1,13 @@
+appId: com.testmanager.app
+productName: Test Manager
+directories:
+  output: dist
+files:
+  - out/**/*
+  - electron/**/*
+win:
+  target: nsis
+mac:
+  target: dmg
+linux:
+  target: AppImage
