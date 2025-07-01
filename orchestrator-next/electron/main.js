@@ -33,7 +33,7 @@ function createWindow() {
       responseHeaders: {
         ...details.responseHeaders,
         "Content-Security-Policy": [
-          "default-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:8080",
+          "default-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:3000",
         ],
       },
     });
@@ -47,7 +47,7 @@ function createWindow() {
     }
   });
 
-  win.loadURL("http://localhost:8080");
+  win.loadURL("http://localhost:3000");
   win.webContents.openDevTools();
 
   // Configura os handlers IPC

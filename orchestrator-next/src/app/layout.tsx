@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+export const dynamic = "force-dynamic";
+
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "sonner";
+import { Inter } from "next/font/google";
 import { auth } from "@/lib/auth";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Test Manager",
-  description: "Gerenciador de testes Karate e Gatling",
+  description: "A test management tool",
 };
 
 export default async function RootLayout({
@@ -29,7 +29,6 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          <Toaster />
         </ThemeProvider>
       </body>
     </html>

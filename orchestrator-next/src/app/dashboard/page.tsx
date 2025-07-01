@@ -1,15 +1,18 @@
+export const dynamic = "force-dynamic";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
   const session = await auth();
 
   if (!session?.user) {
-    return null;
+    redirect("/auth/signin");
   }
 
-  const testExecutions = await prisma.testExecution.findMany({
+  const testExecutions = await prisma.testHistory.findMany({
     where: {
       userId: session.user.id,
     },

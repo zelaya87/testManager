@@ -1,7 +1,8 @@
-import NextAuth from "next-auth";
+import NextAuth, { User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
+import { getServerSession } from "next-auth/next";
 
 declare module "next-auth" {
   interface Session {
@@ -14,7 +15,7 @@ declare module "next-auth" {
   }
 }
 
-export const config = {
+export const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -26,7 +27,7 @@ export const config = {
     signIn: "/auth/signin",
   },
   callbacks: {
-    async session({ session, user }) {
+    async session({ session, user }: { session: Session; user: User }) {
       if (session?.user) {
         session.user.id = user.id;
       }
@@ -35,4 +36,10 @@ export const config = {
   },
 };
 
-export const { auth } = NextAuth(config);
+export default NextAuth(authOptions);
+
+// Helper function to get auth in server components
+export const auth = async () => {
+  const session = await getServerSession(authOptions);
+  return session;
+};
